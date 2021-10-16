@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -19,12 +21,21 @@ class CreateUsersTable extends Migration
             $table->string('cpf')->unique();
             $table->string('endereco')->nullable();
             $table->string('email')->unique();
-            $table->boolean('master')->default(false);
+            $table->string('perfil')->default('Publico'); // Tipos: Publico, Juridico, Admin
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')->insert([
+            'name' => 'Ronaldo',
+            'email' => 'ronaldo.mello@tjmt.jus.br',
+            'password' => Hash::make('123456'),
+            'cpf' => '000.000.000-00',
+            'endereco' => 'forum de caceres - MT',
+            'perfil' => 'Admin'
+        ]);
     }
 
     /**

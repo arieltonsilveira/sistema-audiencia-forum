@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UserValidate extends FormRequest
+class AgendaUserValidate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +24,8 @@ class UserValidate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
-            'cpf' => 'required',
-            'password' => 'required',
-            'perfil' => [
-                'required',
-                Rule::in(['Publico', 'Juridico', 'Admin']),
-            ],
+            'user_id' => 'required|exists:users,id',
+            'agenda_id' => 'required|exists:agendas,id'
         ];
     }
 }

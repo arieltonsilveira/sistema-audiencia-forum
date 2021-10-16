@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SalaAudienciaValidate;
+use App\Models\SalaAudiencia;
 use Illuminate\Http\Request;
 
-class Agenda extends Controller
+class SalaAudienciaController extends Controller
 {
+
+    private $salaAudiencia;
+
+    public function __construct()
+    {
+        $this->salaAudiencia = new SalaAudiencia();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,7 @@ class Agenda extends Controller
      */
     public function index()
     {
-        //
+        return Response()->json($this->salaAudiencia->all(), 200);
     }
 
     /**
@@ -22,9 +32,9 @@ class Agenda extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SalaAudienciaValidate $request)
     {
-        //
+        return Response()->json($this->salaAudiencia->create($request->all()), 201);
     }
 
     /**
@@ -35,7 +45,7 @@ class Agenda extends Controller
      */
     public function show($id)
     {
-        //
+        return Response()->json($this->salaAudiencia->find($id), 200);
     }
 
     /**
@@ -47,7 +57,7 @@ class Agenda extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return Response()->json($this->salaAudiencia->find($id)->update($request->all()), 200);
     }
 
     /**
@@ -58,6 +68,6 @@ class Agenda extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Response()->json($this->salaAudiencia->find($id)->delete(), 200);
     }
 }

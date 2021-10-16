@@ -16,8 +16,12 @@ class CreateAgendasTable extends Migration
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
+            $table->string('situacao')->default('Pendente'); // Aceito / Pendente / Negado
+            $table->string('link')->nullable();
             $table->dateTime('inicio', $precision = 0);
             $table->dateTime('fim', $precision = 0);
+            $table->unsignedBigInteger('sala_id')->nullable();
+            $table->foreign('sala_id')->references('id')->on('sala_audiencias');
             $table->timestamps();
         });
     }
